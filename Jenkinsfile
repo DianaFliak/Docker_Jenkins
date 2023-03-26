@@ -13,8 +13,6 @@ pipeline {
                 '''
             }
         }
-    }
-    stages {
         stage('Build docker image') {
             steps {
                 sh '''
@@ -22,17 +20,15 @@ pipeline {
                 '''
             }
         }
-    }
-    stage('Push docker image to DockerHub') {
-        steps{
-            withDockerRegistry(credentialsId: 'DockerHub', url: 'https://index.docker.io/v1/') {
-                sh '''
-                    docker push bohdan004/apteka:latest
-                '''
+        stage('Push docker image to DockerHub') {
+            steps{
+                withDockerRegistry(credentialsId: 'DockerHub', url: 'https://index.docker.io/v1/') {
+                    sh '''
+                        docker push bohdan004/apteka:latest
+                    '''
+                }
             }
         }
-    }
-    stages {
         stage('Docker delete local image') {
             steps {
                 sh '''
