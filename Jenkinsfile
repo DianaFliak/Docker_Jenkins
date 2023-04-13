@@ -5,14 +5,14 @@ pipeline {
             steps {
                 sh '''
                     echo $USER
-                    docker version
+                    sudo docker version
                 '''
             }
         }
         stage('Build docker image') {
             steps {
                 sh '''
-                    docker build -t bohdan004/apteka:latest .
+                    sudo docker build -t dianafliak/laba:latest .
                 '''
             }
         }
@@ -20,7 +20,7 @@ pipeline {
             steps{
                 withDockerRegistry(credentialsId: 'DockerHub', url: 'https://index.docker.io/v1/') {
                     sh '''
-                        docker push bohdan004/apteka:latest
+                        sudo docker push dianafliak/laba:latest
                     '''
                 }
             }
@@ -28,7 +28,7 @@ pipeline {
         stage('Docker delete local image') {
             steps {
                 sh '''
-                    docker rmi bohdan004/apteka:latest
+                    sudo docker rmi dianafliak/laba:latest
                 '''
             }
         }
